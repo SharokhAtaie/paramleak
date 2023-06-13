@@ -1,7 +1,4 @@
-# Paramleak
-
-### Description:
-`A tool for extract parameters from Websites (HTML/JSON)`
+# paramleaks
 
 
 ### Installation:
@@ -9,8 +6,10 @@
 go install github.com/SharokhAtaie/paramleak@latest
 ```
 
-### Flags:
-```ruby
+
+### Usage:
+
+```
 ██████╗  █████╗ ██████╗  █████╗ ███╗   ███╗██╗     ███████╗ █████╗ ██╗  ██╗
 ██╔══██╗██╔══██╗██╔══██╗██╔══██╗████╗ ████║██║     ██╔════╝██╔══██╗██║ ██╔╝
 ██████╔╝███████║██████╔╝███████║██╔████╔██║██║     █████╗  ███████║█████╔╝ 
@@ -30,33 +29,3 @@ Flags:
         -silent,        -s              Silent mode
 
 ```
-
-### Usage:
-```ruby
-➜ ✗ paramleak -u "https://example.com/params.html"
-
-██████╗  █████╗ ██████╗  █████╗ ███╗   ███╗██╗     ███████╗ █████╗ ██╗  ██╗
-██╔══██╗██╔══██╗██╔══██╗██╔══██╗████╗ ████║██║     ██╔════╝██╔══██╗██║ ██╔╝
-██████╔╝███████║██████╔╝███████║██╔████╔██║██║     █████╗  ███████║█████╔╝ 
-██╔═══╝ ██╔══██║██╔══██╗██╔══██║██║╚██╔╝██║██║     ██╔══╝  ██╔══██║██╔═██╗ 
-██║     ██║  ██║██║  ██║██║  ██║██║ ╚═╝ ██║███████╗███████╗██║  ██║██║  ██╗
-╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
-                Created by Sharo_k_h :)
-
-something
-test_var
-user_id_i
-name
-rdt_to
-obj_key1
-val1
-obj_key2
-val2
-test_obj
-empty_var
-param1
-method
-param2
-```
-
-#### Thanks to ProjectDiscovery for best libraries
