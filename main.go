@@ -4,12 +4,12 @@ import (
 	"bufio"
 	"context"
 	"fmt"
+	"github.com/SharokhAtaie/paramleak/regex"
 	"github.com/projectdiscovery/goflags"
 	"github.com/projectdiscovery/gologger"
 	fUtils "github.com/projectdiscovery/utils/file"
 	httpUtil "github.com/projectdiscovery/utils/http"
 	sUtils "github.com/projectdiscovery/utils/slice"
-	"github.com/SharokhAtaie/paramleak/regex"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -111,7 +111,7 @@ func run(lists []string, method, body string, delay time.Duration) []string {
 			time.Sleep(delay * time.Millisecond)
 			data, err := Request(method, URL, body)
 			if err != nil {
-				gologger.Error().Msgf("%v", err)
+				c <- []string{}
 				return
 			}
 			result := regex.Regex(data)
@@ -132,7 +132,7 @@ func run(lists []string, method, body string, delay time.Duration) []string {
 }
 
 var client = &http.Client{
-	Timeout: 10 * time.Second,
+	Timeout: 3 * time.Second,
 }
 
 func Request(method, urlStr, bodyStr string) (string, error) {
@@ -145,7 +145,7 @@ func Request(method, urlStr, bodyStr string) (string, error) {
 		urlStr = "https://" + u.Host + u.Path
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 
 	reqBody := strings.NewReader(bodyStr)
