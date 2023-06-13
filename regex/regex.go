@@ -6,11 +6,11 @@ import (
 	"sync"
 )
 
-var quotes = regexp.MustCompile(`["'](\w+)["']`)
-var words = regexp.MustCompile(`(\s)(\w+)(\s)?:`)
-var variable = regexp.MustCompile(`(?:var|let|const)\s*(\w+)`)
-var equal = regexp.MustCompile(`(\w+)(\s)?=`)
-var queryParams = regexp.MustCompile(`\?(\w+)=[^&\s]+`)
+var quotes = regexp.MustCompile(`["'](\w{1,50})["']`)
+var words = regexp.MustCompile(`(\s)(\w{1,50})(\s)?:`)
+var variable = regexp.MustCompile(`(?:var|let|const)\s*(\w{1,50})`)
+var equal = regexp.MustCompile(`(\w{1,50})(\s)?=`)
+var queryParams = regexp.MustCompile(`\?(\w{1,50})=[^&\s]+`)
 
 func Regex(input string) []string {
 	data := strings.Split(input, "\n")
@@ -35,7 +35,8 @@ func Regex(input string) []string {
 			}
 			if wordMatches := words.FindAllStringSubmatch(v, -1); len(wordMatches) > 0 {
 				for _, match := range wordMatches {
-					final := strings.ReplaceAll(match[0], ":", "")
+					word := strings.ReplaceAll(match[0], ":", "")
+					final := strings.TrimSpace(word)
 					matches = append(matches, final)
 				}
 			}
