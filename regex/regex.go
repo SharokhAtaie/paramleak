@@ -11,6 +11,7 @@ var words = regexp.MustCompile(`(\s)(\w{1,50})(\s)?:`)
 var variable = regexp.MustCompile(`(?:var|let|const)\s*(\w{1,50})`)
 var equal = regexp.MustCompile(`(\w{1,50})(\s)?=`)
 var queryParams = regexp.MustCompile(`\?(\w{1,50})=[^&\s]+`)
+var function = regexp.MustCompile(`\((['"]?)(\w+)(['"]?)\)`)
 
 func Regex(input string) []string {
 	data := strings.Split(input, "\n")
@@ -54,6 +55,13 @@ func Regex(input string) []string {
 			if queryParamsMatches := queryParams.FindAllStringSubmatch(v, -1); len(queryParamsMatches) > 0 {
 				for _, match := range queryParamsMatches {
 					matches = append(matches, match[1])
+				}
+			}
+			if functionMatches := function.FindAllStringSubmatch(v, -1); len(functionMatches) > 0 {
+				for _, match := range functionMatches {
+					match[0] = strings.ReplaceAll(match[0], "(", "")
+					match[0] = strings.ReplaceAll(match[0], ")", "")
+					matches = append(matches, match[0])
 				}
 			}
 
