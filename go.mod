@@ -1,6 +1,6 @@
 module github.com/SharokhAtaie/paramleak
 
-go 1.21
+go 1.18
 
 toolchain go1.21.1
 
