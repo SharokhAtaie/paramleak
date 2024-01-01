@@ -3,13 +3,14 @@ package main
 import (
 	"bufio"
 	"context"
+	"crypto/tls"
 	"fmt"
+	"github.com/SharokhAtaie/paramleak/regex"
 	"github.com/projectdiscovery/goflags"
 	"github.com/projectdiscovery/gologger"
 	fUtils "github.com/projectdiscovery/utils/file"
 	httpUtil "github.com/projectdiscovery/utils/http"
 	sUtils "github.com/projectdiscovery/utils/slice"
-	"github.com/SharokhAtaie/paramleak/regex"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -111,8 +112,7 @@ func run(lists []string, method, body string, delay time.Duration) []string {
 			time.Sleep(delay * time.Millisecond)
 			data, err := Request(method, URL, body)
 			if err != nil {
-				gologger.Error().Msgf("%v", err)
-				return
+				c <- []string{}
 			}
 			result := regex.Regex(data)
 			c <- result
@@ -132,7 +132,10 @@ func run(lists []string, method, body string, delay time.Duration) []string {
 }
 
 var client = &http.Client{
-	Timeout: 10 * time.Second,
+	Timeout: 3 * time.Second,
+	Transport: &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	},
 }
 
 func Request(method, urlStr, bodyStr string) (string, error) {
@@ -145,7 +148,7 @@ func Request(method, urlStr, bodyStr string) (string, error) {
 		urlStr = "https://" + u.Host + u.Path
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 
 	reqBody := strings.NewReader(bodyStr)
@@ -167,11 +170,11 @@ func Request(method, urlStr, bodyStr string) (string, error) {
 	}
 
 	if opt.verbose {
-		dump, err := httpUtil.DumpRequest(req)
+		dumpRequest, err := httpUtil.DumpRequest(req)
 		if err != nil {
 			return "", err
 		}
-		gologger.Print().Msgf(dump)
+		gologger.Print().Msgf(dumpRequest)
 	}
 
 	resp, err := client.Do(req)
@@ -179,6 +182,16 @@ func Request(method, urlStr, bodyStr string) (string, error) {
 		return "", err
 	}
 	defer resp.Body.Close()
+
+	if opt.verbose {
+		dumpHeaderResponse, dumpBodyResponse, err := httpUtil.DumpResponseHeadersAndRaw(resp)
+		if err != nil {
+			return "", err
+		}
+
+		gologger.Print().Msgf(string(dumpHeaderResponse))
+		gologger.Print().Msgf(string(dumpBodyResponse))
+	}
 
 	respBody, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
