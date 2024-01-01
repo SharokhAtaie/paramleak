@@ -145,7 +145,7 @@ func Request(method, urlStr, bodyStr string) (string, error) {
 	}
 
 	if u.Scheme == "" {
-		urlStr = "https://" + u.Host + u.Path
+		urlStr = "http://" + u.Host + u.Path
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
