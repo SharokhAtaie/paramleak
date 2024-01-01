@@ -1,27 +1,15 @@
-<<<<<<< HEAD
 # paramleaks
-=======
-# Paramleak
-
-### Description:
-`A tool for extract parameters from Websites (HTML/JSON)`
->>>>>>> 84ba0f47fd144b8d4b0432c99f7ddfa66e8c3a7b
-
+```A tool for extract parameters from Websites (HTML/JSON)```
 
 ### Installation:
 ```
 go install github.com/SharokhAtaie/paramleak@latest
 ```
 
-<<<<<<< HEAD
 
 ### Usage:
 
 ```
-=======
-### Flags:
-```ruby
->>>>>>> 84ba0f47fd144b8d4b0432c99f7ddfa66e8c3a7b
 ██████╗  █████╗ ██████╗  █████╗ ███╗   ███╗██╗     ███████╗ █████╗ ██╗  ██╗
 ██╔══██╗██╔══██╗██╔══██╗██╔══██╗████╗ ████║██║     ██╔════╝██╔══██╗██║ ██╔╝
 ██████╔╝███████║██████╔╝███████║██╔████╔██║██║     █████╗  ███████║█████╔╝ 
@@ -29,10 +17,7 @@ go install github.com/SharokhAtaie/paramleak@latest
 ██║     ██║  ██║██║  ██║██║  ██║██║ ╚═╝ ██║███████╗███████╗██║  ██║██║  ██╗
 ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
                   Created by Sharo_k_h :)
-<<<<<<< HEAD
 
-=======
->>>>>>> 84ba0f47fd144b8d4b0432c99f7ddfa66e8c3a7b
 Flags:
         -url,           -u              Url for Get All parameters
         -list,          -l              List of Url for Get All parameters
@@ -42,10 +27,7 @@ Flags:
         -delay,         -p              Time for delay example: 1000 Millisecond (1 second)
         -verbose,       -v              Verbose mode
         -silent,        -s              Silent mode
-<<<<<<< HEAD
 
-```
-=======
 ```
 
 ### Usage:
@@ -72,7 +54,3 @@ empty_var
 param1
 method
 param2
-```
-
-#### Thanks to ProjectDiscovery for best libraries
->>>>>>> 84ba0f47fd144b8d4b0432c99f7ddfa66e8c3a7b

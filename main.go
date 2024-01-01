@@ -3,10 +3,7 @@ package main
 import (
 	"bufio"
 	"context"
-<<<<<<< HEAD
 	"crypto/tls"
-=======
->>>>>>> 84ba0f47fd144b8d4b0432c99f7ddfa66e8c3a7b
 	"fmt"
 	"github.com/SharokhAtaie/paramleak/regex"
 	"github.com/projectdiscovery/goflags"
@@ -116,10 +113,6 @@ func run(lists []string, method, body string, delay time.Duration) []string {
 			data, err := Request(method, URL, body)
 			if err != nil {
 				c <- []string{}
-<<<<<<< HEAD
-=======
-				return
->>>>>>> 84ba0f47fd144b8d4b0432c99f7ddfa66e8c3a7b
 			}
 			result := regex.Regex(data)
 			c <- result
@@ -140,12 +133,9 @@ func run(lists []string, method, body string, delay time.Duration) []string {
 
 var client = &http.Client{
 	Timeout: 3 * time.Second,
-<<<<<<< HEAD
 	Transport: &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	},
-=======
->>>>>>> 84ba0f47fd144b8d4b0432c99f7ddfa66e8c3a7b
 }
 
 func Request(method, urlStr, bodyStr string) (string, error) {
@@ -180,19 +170,11 @@ func Request(method, urlStr, bodyStr string) (string, error) {
 	}
 
 	if opt.verbose {
-<<<<<<< HEAD
 		dumpRequest, err := httpUtil.DumpRequest(req)
 		if err != nil {
 			return "", err
 		}
 		gologger.Print().Msgf(dumpRequest)
-=======
-		dump, err := httpUtil.DumpRequest(req)
-		if err != nil {
-			return "", err
-		}
-		gologger.Print().Msgf(dump)
->>>>>>> 84ba0f47fd144b8d4b0432c99f7ddfa66e8c3a7b
 	}
 
 	resp, err := client.Do(req)
@@ -201,7 +183,6 @@ func Request(method, urlStr, bodyStr string) (string, error) {
 	}
 	defer resp.Body.Close()
 
-<<<<<<< HEAD
 	if opt.verbose {
 		dumpHeaderResponse, dumpBodyResponse, err := httpUtil.DumpResponseHeadersAndRaw(resp)
 		if err != nil {
@@ -212,8 +193,6 @@ func Request(method, urlStr, bodyStr string) (string, error) {
 		gologger.Print().Msgf(string(dumpBodyResponse))
 	}
 
-=======
->>>>>>> 84ba0f47fd144b8d4b0432c99f7ddfa66e8c3a7b
 	respBody, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return "", err
