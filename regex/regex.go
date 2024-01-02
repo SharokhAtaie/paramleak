@@ -6,7 +6,7 @@ import (
 	"sync"
 )
 
-var quotes = regexp.MustCompile(`["'](\w+(?:[-\s]\w+)*)["']`)
+var quotes = regexp.MustCompile(`["'](\w+(?:[-]\w+)*)["']`)
 var words = regexp.MustCompile(`(\s)?(\w{1,50})(\s)?:`)
 var variable = regexp.MustCompile(`(?:var|let|const)\s*(\w{1,50})`)
 var equal = regexp.MustCompile(`(\w{1,50})\s*=`)
