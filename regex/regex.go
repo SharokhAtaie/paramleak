@@ -27,7 +27,7 @@ func Regex(input string) []string {
 		go func(v string) {
 			defer wg.Done()
 
-			matches := make([]string, 0, 5)
+			matches := make([]string, 0, 6)
 
 			if quotesMatches := quotes.FindAllStringSubmatch(v, -1); len(quotesMatches) > 0 {
 				for _, match := range quotesMatches {
@@ -36,9 +36,9 @@ func Regex(input string) []string {
 			}
 			if wordMatches := words.FindAllStringSubmatch(v, -1); len(wordMatches) > 0 {
 				for _, match := range wordMatches {
-					word := strings.ReplaceAll(match[0], ":", "")
-					final := strings.TrimSpace(word)
-					matches = append(matches, final)
+					match[0] = strings.ReplaceAll(match[0], ":", "")
+					match[0] = strings.TrimSpace(match[0])
+					matches = append(matches, match[0])
 				}
 			}
 			if variableMatches := variable.FindAllStringSubmatch(v, -1); len(variableMatches) > 0 {
@@ -48,8 +48,8 @@ func Regex(input string) []string {
 			}
 			if equalMatches := equal.FindAllStringSubmatch(v, -1); len(equalMatches) > 0 {
 				for _, match := range equalMatches {
-					final := strings.ReplaceAll(match[0], "=", "")
-					matches = append(matches, final)
+					match[0] = strings.ReplaceAll(match[0], "=", "")
+					matches = append(matches, match[0])
 				}
 			}
 			if queryParamsMatches := queryParams.FindAllStringSubmatch(v, -1); len(queryParamsMatches) > 0 {
